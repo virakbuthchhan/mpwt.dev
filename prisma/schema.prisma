@@ -1,0 +1,132 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String   @id @default(uuid())
+  username     String   @unique
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         String   @default("Editor") // Super Admin, Editor, Viewer
+  avatar       String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model News {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  titleKh     String
+  titleEn     String
+  excerptKh   String
+  excerptEn   String
+  contentKh   String   @db.Text
+  contentEn   String   @db.Text
+  category    String   @default("General")
+  author      String   @default("DITS Admin")
+  publishedAt String
+  imageUrl    String
+  views       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Project {
+  id              String   @id @default(uuid())
+  titleKh         String
+  titleEn         String
+  descriptionKh   String   @db.Text
+  descriptionEn   String   @db.Text
+  status          String   @default("Planning") // Planning, In Progress, Completed
+  progress        Int      @default(0)
+  timeline        String
+  responsibleUnit String
+  unitKh          String
+  year            Int      @default(2026)
+  imageUrl        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Staff {
+  id         String   @id @default(uuid())
+  nameKh     String
+  nameEn     String
+  positionKh String
+  positionEn String
+  unitKh     String
+  unitEn     String
+  email      String
+  phone      String
+  photo      String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Faq {
+  id         String   @id @default(uuid())
+  questionKh String
+  questionEn String
+  answerKh   String   @db.Text
+  answerEn   String   @db.Text
+  category   String   @default("General") // General, Services, Support, OpenData
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Dataset {
+  id            String   @id @default(uuid())
+  titleKh       String
+  titleEn       String
+  descriptionKh String   @db.Text
+  descriptionEn String   @db.Text
+  category      String   @default("Transport Statistics")
+  format        String   @default("CSV") // CSV, JSON, PDF
+  fileSize      String
+  lastUpdated   String
+  downloads     Int      @default(0)
+  downloadUrl   String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Technology {
+  id            String   @id @default(uuid())
+  name          String
+  descriptionKh String   @db.Text
+  descriptionEn String   @db.Text
+  category      String   @default("Web") // Web, Mobile, Infrastructure, Data
+  techStack     String[] // PostgreSQL Array
+  status        String   @default("Live") // Live, In Development, Maintenance
+  launchYear    Int      @default(2026)
+  systemUrl     String
+  logo          String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Inquiry {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  subject   String
+  message   String   @db.Text
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Setting {
+  id                   String  @id @default("default")
+  announcementTickerKh String  @db.Text
+  announcementTickerEn String  @db.Text
+  maintenanceMode      Boolean @default(false)
+  contactPhone         String
+  contactEmail         String
+  officeHours          String
+}

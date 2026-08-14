@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-scale: 1;
+  }
+  
+  html {
+    font-family: 'Noto Sans Khmer', 'Inter', system-ui, sans-serif;
+    font-size: calc(16px * var(--font-scale, 1));
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gov-surface text-slate-900 transition-colors duration-200;
+  }
+}
+
+/* Accessibility Modes */
+.accessibility-high-contrast {
+  @apply bg-black text-yellow-300 !important;
+}
+
+.accessibility-high-contrast a {
+  @apply text-yellow-400 underline font-bold !important;
+}
+
+.accessibility-high-contrast button {
+  @apply bg-yellow-400 text-black border-2 border-yellow-200 !important;
+}
+
+.accessibility-high-contrast .bg-gov-navy,
+.accessibility-high-contrast .bg-gov-navy-dark,
+.accessibility-high-contrast .bg-white,
+.accessibility-high-contrast .bg-slate-50,
+.accessibility-high-contrast .bg-slate-100 {
+  @apply bg-black border border-yellow-400 text-yellow-300 !important;
+}
+
+.accessibility-dyslexic {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif !important;
+  letter-spacing: 0.05em;
+  word-spacing: 0.1em;
+}
+
+/* Custom Utilities */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+}
+
+.dark-glass {
+  background: rgba(26, 46, 90, 0.92);
+  backdrop-filter: blur(12px);
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #c9a84c 0%, #e5cb7a 50%, #9b7d2f 100%);
+}
+
+.navy-gradient {
+  background: linear-gradient(135deg, #1a2e5a 0%, #101e3d 100%);
+}
