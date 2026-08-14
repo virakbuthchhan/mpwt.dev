@@ -4,7 +4,7 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 
 # Install build tools
-RUN apk add --no-co-cache python3 make g++
+RUN apk add --no-cache python3 make g++
 
 # Copy dependency manifests
 COPY package*.json ./
