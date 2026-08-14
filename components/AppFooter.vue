@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-slate-950 text-slate-300 border-t-4 border-gov-gold pt-16 pb-8 px-4 sm:px-8">
+  <footer class="bg-gov-navy-dark text-slate-200 border-t-4 border-gov-gold pt-16 pb-8 px-4 sm:px-8">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
       <!-- Col 1: Department Info -->
       <div class="md:col-span-2 space-y-4">
@@ -19,13 +19,13 @@
           </div>
         </div>
 
-        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-lg">
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-lg">
           {{ $t('site.tagline') }}
         </p>
 
-        <div class="flex items-center gap-2.5 text-xs text-slate-400">
+        <div class="flex items-center gap-2.5 text-xs text-slate-300">
           <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>Official Domain: <strong class="text-gov-gold font-mono bg-slate-900 px-2 py-0.5 rounded border border-slate-800">mpwt.dev</strong></span>
+          <span>Official Domain: <strong class="text-gov-gold font-mono bg-gov-navy px-2 py-0.5 rounded border border-gov-navy-light/40">mpwt.dev</strong></span>
         </div>
       </div>
 
@@ -34,7 +34,7 @@
         <h4 class="text-white font-bold text-xs uppercase tracking-widest text-gov-gold">
           {{ $t('home.quickLinks') }}
         </h4>
-        <ul class="space-y-2.5 text-xs sm:text-sm text-slate-400">
+        <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300">
           <li>
             <NuxtLink to="/services" class="hover:text-gov-gold transition flex items-center gap-2">
               <svg class="w-3.5 h-3.5 text-gov-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,7 +75,7 @@
         <h4 class="text-white font-bold text-xs uppercase tracking-widest text-gov-gold">
           {{ $t('contact.title') }}
         </h4>
-        <ul class="space-y-3 text-xs text-slate-400">
+        <ul class="space-y-3 text-xs text-slate-300">
           <li class="flex items-start gap-2.5">
             <svg class="w-4 h-4 text-gov-gold shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -101,7 +101,7 @@
     </div>
 
     <!-- Bottom Bar -->
-    <div class="max-w-7xl mx-auto border-t border-slate-900 pt-6 flex flex-wrap items-center justify-between text-xs text-slate-500 gap-3">
+    <div class="max-w-7xl mx-auto border-t border-gov-navy-light/30 pt-6 flex flex-wrap items-center justify-between text-xs text-slate-300/80 gap-3">
       <p>
         Department of Information Technology Systems | Directorate General of GDPTR | Ministry of Public Works and Transport | <span class="text-gov-gold font-mono">mpwt.dev</span>
       </p>

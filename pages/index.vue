@@ -4,23 +4,23 @@
     <HeroBanner />
 
     <!-- High-Tech Metrics Bar -->
-    <section class="bg-slate-950 text-white py-12 px-4 sm:px-8 border-b border-slate-800">
+    <section class="bg-gov-navy-dark text-white py-12 px-4 sm:px-8 border-b border-gov-navy-light/40">
       <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
         <div class="space-y-1">
           <div class="text-3xl sm:text-5xl font-extrabold text-gov-gold font-mono">14+</div>
-          <div class="text-xs sm:text-sm text-slate-300 font-bold uppercase tracking-wider">{{ $t('home.stats.systems') }}</div>
+          <div class="text-xs sm:text-sm text-slate-200 font-bold uppercase tracking-wider">{{ $t('home.stats.systems') }}</div>
         </div>
         <div class="space-y-1">
           <div class="text-3xl sm:text-5xl font-extrabold text-gov-gold font-mono">28+</div>
-          <div class="text-xs sm:text-sm text-slate-300 font-bold uppercase tracking-wider">{{ $t('home.stats.projects') }}</div>
+          <div class="text-xs sm:text-sm text-slate-200 font-bold uppercase tracking-wider">{{ $t('home.stats.projects') }}</div>
         </div>
         <div class="space-y-1">
           <div class="text-3xl sm:text-5xl font-extrabold text-gov-gold font-mono">45+</div>
-          <div class="text-xs sm:text-sm text-slate-300 font-bold uppercase tracking-wider">{{ $t('home.stats.staff') }}</div>
+          <div class="text-xs sm:text-sm text-slate-200 font-bold uppercase tracking-wider">{{ $t('home.stats.staff') }}</div>
         </div>
         <div class="space-y-1">
           <div class="text-3xl sm:text-5xl font-extrabold text-gov-gold font-mono">120+</div>
-          <div class="text-xs sm:text-sm text-slate-300 font-bold uppercase tracking-wider">{{ $t('home.stats.datasets') }}</div>
+          <div class="text-xs sm:text-sm text-slate-200 font-bold uppercase tracking-wider">{{ $t('home.stats.datasets') }}</div>
         </div>
       </div>
     </section>
@@ -43,7 +43,7 @@
           :to="link.path"
           class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-gov-gold hover:shadow-xl transition-all duration-300 text-center space-y-3 group"
         >
-          <div class="w-13 h-13 rounded-2xl bg-slate-100 text-gov-navy flex items-center justify-center mx-auto group-hover:bg-gov-navy group-hover:text-gov-gold transition duration-300 shadow-inner">
+          <div class="w-13 h-13 rounded-2xl bg-gov-navy/10 text-gov-navy flex items-center justify-center mx-auto group-hover:bg-gov-navy group-hover:text-gov-gold transition duration-300 shadow-inner">
             <component :is="link.icon" class="w-6 h-6" />
           </div>
           <div class="text-xs font-bold text-slate-800 group-hover:text-gov-navy transition">
@@ -115,13 +115,13 @@
     <section class="bg-gov-navy text-white py-20 px-4 sm:px-8 relative overflow-hidden">
       <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
         <div class="lg:col-span-5 space-y-5">
-          <span class="text-gov-gold font-bold text-xs uppercase tracking-widest bg-slate-900 px-3 py-1 rounded-full border border-gov-gold/30">
+          <span class="text-gov-gold font-bold text-xs uppercase tracking-widest bg-gov-navy-dark px-3 py-1 rounded-full border border-gov-gold/30">
             MPWT Technology Stack
           </span>
           <h2 class="text-3xl sm:text-4xl font-bold font-khmer leading-snug">
             {{ $t('home.techTeaserTitle') }}
           </h2>
-          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
+          <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans">
             {{ $t('home.techTeaserDesc') }}
           </p>
           <NuxtLink

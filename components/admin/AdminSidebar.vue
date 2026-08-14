@@ -1,8 +1,8 @@
 <template>
-  <aside class="w-64 bg-slate-950 text-slate-300 min-h-screen flex flex-col justify-between border-r border-slate-900 shrink-0">
+  <aside class="w-64 bg-gov-navy-dark text-slate-200 min-h-screen flex flex-col justify-between border-r border-gov-navy-light/40 shrink-0">
     <div>
       <!-- Header Branding -->
-      <div class="p-6 border-b border-slate-900 flex items-center gap-3">
+      <div class="p-6 border-b border-gov-navy-light/40 flex items-center gap-3">
         <div class="w-10 h-10 rounded-xl bg-gov-navy text-gov-gold flex items-center justify-center font-bold shadow-lg border border-gov-gold/40">
           <svg class="w-5 h-5 text-gov-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -20,7 +20,7 @@
           v-for="item in menuItems"
           :key="item.path"
           :to="item.path"
-          class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-900 hover:text-gov-gold transition"
+          class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-gov-navy hover:text-gov-gold transition"
           active-class="bg-gov-navy text-gov-gold font-bold border-l-4 border-gov-gold shadow-md"
         >
           <component :is="item.icon" class="w-4 h-4 text-gov-gold shrink-0" />
@@ -30,7 +30,7 @@
     </div>
 
     <!-- User Profile & Logout -->
-    <div class="p-4 border-t border-slate-900 space-y-3">
+    <div class="p-4 border-t border-gov-navy-light/40 space-y-3">
       <div v-if="user" class="flex items-center gap-3">
         <img :src="user.avatar" :alt="user.name" class="w-9 h-9 rounded-full object-cover border-2 border-gov-gold" />
         <div class="truncate">
@@ -43,7 +43,7 @@
 
       <button
         @click="logout"
-        class="w-full py-2.5 bg-slate-900 hover:bg-rose-950 hover:text-rose-300 text-slate-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 border border-slate-800"
+        class="w-full py-2.5 bg-gov-navy hover:bg-rose-950 hover:text-rose-300 text-slate-200 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 border border-gov-navy-light/40"
       >
         <svg class="w-4 h-4 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />

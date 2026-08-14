@@ -1,27 +1,27 @@
 <template>
   <header class="w-full bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-40 border-b border-slate-200/80 transition-colors duration-200">
     <!-- Top Government Utility Bar -->
-    <div class="bg-gov-navy text-slate-300 text-xs py-1.5 px-4 sm:px-8 border-b border-slate-800">
+    <div class="bg-gov-navy text-slate-200 text-xs py-1.5 px-4 sm:px-8 border-b border-gov-navy-dark">
       <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
         <div class="flex items-center gap-3">
           <span class="font-khmer text-gov-gold font-medium tracking-wide">ព្រះរាជាណាចក្រកម្ពុជា • ជាតិ សាសនា ព្រះមហាក្សត្រ</span>
-          <span class="hidden md:inline text-slate-700">|</span>
-          <span class="hidden md:inline text-slate-400 font-mono text-[11px] bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700">mpwt.dev</span>
+          <span class="hidden md:inline text-blue-300/40">|</span>
+          <span class="hidden md:inline text-slate-200 font-mono text-[11px] bg-gov-navy-dark px-2 py-0.5 rounded border border-gov-navy-light/40">mpwt.dev</span>
         </div>
 
         <div class="flex items-center gap-4 ml-auto">
           <!-- Language Switcher -->
-          <div class="flex items-center bg-slate-900 rounded-lg p-0.5 border border-slate-800 shadow-inner">
+          <div class="flex items-center bg-gov-navy-dark rounded-lg p-0.5 border border-gov-navy-light/50 shadow-inner">
             <button
               @click="switchLanguage('km')"
-              :class="['px-2.5 py-1 rounded-md text-[11px] font-bold transition flex items-center gap-1.5', locale === 'km' ? 'bg-gov-gold text-gov-navy font-bold shadow' : 'text-slate-400 hover:text-white']"
+              :class="['px-2.5 py-1 rounded-md text-[11px] font-bold transition flex items-center gap-1.5', locale === 'km' ? 'bg-gov-gold text-gov-navy font-bold shadow' : 'text-slate-300 hover:text-white']"
             >
               <span>🇰🇭</span>
               <span>ភាសាខ្មែរ</span>
             </button>
             <button
               @click="switchLanguage('en')"
-              :class="['px-2.5 py-1 rounded-md text-[11px] font-bold transition flex items-center gap-1.5', locale === 'en' ? 'bg-gov-gold text-gov-navy font-bold shadow' : 'text-slate-400 hover:text-white']"
+              :class="['px-2.5 py-1 rounded-md text-[11px] font-bold transition flex items-center gap-1.5', locale === 'en' ? 'bg-gov-gold text-gov-navy font-bold shadow' : 'text-slate-300 hover:text-white']"
             >
               <span>🇬🇧</span>
               <span>English</span>
@@ -31,7 +31,7 @@
           <!-- Admin Portal Trigger -->
           <NuxtLink
             to="/admin"
-            class="text-gov-gold hover:text-white flex items-center gap-1.5 font-bold transition text-[11px] px-2.5 py-1 bg-gov-gold/10 rounded-lg border border-gov-gold/30 hover:border-gov-gold"
+            class="text-gov-gold hover:text-white flex items-center gap-1.5 font-bold transition text-[11px] px-2.5 py-1 bg-gov-gold/15 rounded-lg border border-gov-gold/40 hover:border-gov-gold shadow-sm"
           >
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -53,7 +53,7 @@
         </div>
 
         <div>
-          <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight group-hover:text-sky-600 transition font-sans">
+          <h1 class="text-base sm:text-lg font-bold text-gov-navy leading-tight group-hover:text-gov-navy-light transition font-sans">
             {{ $t('site.title') }}
           </h1>
           <p class="text-xs text-slate-500 font-medium">
@@ -70,7 +70,7 @@
       <!-- Mobile Menu Button -->
       <button
         @click="mobileMenuOpen = !mobileMenuOpen"
-        class="lg:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-xl focus:outline-none border border-slate-200"
+        class="lg:hidden p-2 text-gov-navy hover:bg-slate-100 rounded-xl focus:outline-none border border-slate-200"
         aria-label="Toggle navigation"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -81,14 +81,14 @@
     </div>
 
     <!-- Navigation Bar -->
-    <nav class="bg-gov-navy text-white shadow-inner hidden lg:block border-t border-slate-800">
+    <nav class="bg-gov-navy text-white shadow-md hidden lg:block border-t border-gov-navy-dark">
       <div class="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between">
         <ul class="flex items-center space-x-1 font-medium text-xs sm:text-sm">
           <li v-for="link in navLinks" :key="link.path">
             <NuxtLink
               :to="link.path"
-              class="px-4 py-3 block hover:bg-slate-800 hover:text-gov-gold transition border-b-2 border-transparent"
-              active-class="bg-slate-800 text-gov-gold border-gov-gold font-bold"
+              class="px-4 py-3 block hover:bg-gov-navy-dark hover:text-gov-gold transition border-b-2 border-transparent"
+              active-class="bg-gov-navy-dark text-gov-gold border-gov-gold font-bold"
             >
               {{ $t(link.label) }}
             </NuxtLink>
@@ -98,15 +98,15 @@
     </nav>
 
     <!-- Mobile Navigation Drawer -->
-    <div v-if="mobileMenuOpen" class="lg:hidden bg-gov-navy text-white px-4 py-5 space-y-4 border-t border-slate-800">
+    <div v-if="mobileMenuOpen" class="lg:hidden bg-gov-navy text-white px-4 py-5 space-y-4 border-t border-gov-navy-dark">
       <SearchBar class="w-full" />
       <ul class="space-y-1 font-medium text-sm">
         <li v-for="link in navLinks" :key="link.path">
           <NuxtLink
             :to="link.path"
             @click="mobileMenuOpen = false"
-            class="block px-3.5 py-2.5 rounded-xl hover:bg-slate-800 hover:text-gov-gold transition"
-            active-class="bg-slate-800 text-gov-gold font-bold"
+            class="block px-3.5 py-2.5 rounded-xl hover:bg-gov-navy-dark hover:text-gov-gold transition"
+            active-class="bg-gov-navy-dark text-gov-gold font-bold"
           >
             {{ $t(link.label) }}
           </NuxtLink>

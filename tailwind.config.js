@@ -13,9 +13,9 @@ module.exports = {
     extend: {
       colors: {
         gov: {
-          navy: '#0f172a',
-          'navy-dark': '#090d16',
-          'navy-light': '#1e293b',
+          navy: '#293375',
+          'navy-dark': '#1b2252',
+          'navy-light': '#384699',
           gold: '#c9a84c',
           'gold-light': '#e5cb7a',
           'gold-dark': '#9b7d2f',
