@@ -1,11 +1,11 @@
 <template>
-  <div class="border border-slate-300 rounded-lg overflow-hidden bg-white">
+  <div class="border border-slate-300 rounded-xl overflow-hidden bg-white">
     <!-- Toolbar -->
-    <div class="bg-slate-100 p-2 border-b border-slate-300 flex flex-wrap items-center gap-1 text-xs">
+    <div class="bg-slate-100 p-2 border-b border-slate-300 flex flex-wrap items-center gap-1.5 text-xs">
       <button
         type="button"
         @click="exec('bold')"
-        class="px-2 py-1 bg-white hover:bg-slate-200 rounded font-bold border border-slate-300"
+        class="px-2.5 py-1 bg-white hover:bg-slate-200 rounded-lg font-bold border border-slate-300 shadow-sm"
         title="Bold"
       >
         B
@@ -13,7 +13,7 @@
       <button
         type="button"
         @click="exec('italic')"
-        class="px-2 py-1 bg-white hover:bg-slate-200 rounded italic font-serif border border-slate-300"
+        class="px-2.5 py-1 bg-white hover:bg-slate-200 rounded-lg italic font-serif border border-slate-300 shadow-sm"
         title="Italic"
       >
         I
@@ -24,28 +24,18 @@
       <button
         type="button"
         @click="exec('insertUnorderedList')"
-        class="px-2 py-1 bg-white hover:bg-slate-200 rounded border border-slate-300"
+        class="px-2.5 py-1 bg-white hover:bg-slate-200 rounded-lg border border-slate-300 font-semibold shadow-sm"
         title="Bullet List"
       >
-        • List
+        List
       </button>
-      <button
-        type="button"
-        @click="exec('insertOrderedList')"
-        class="px-2 py-1 bg-white hover:bg-slate-200 rounded border border-slate-300"
-        title="Numbered List"
-      >
-        1. List
-      </button>
-
-      <div class="w-px h-5 bg-slate-300 mx-1"></div>
 
       <button
         type="button"
         @click="toggleMode"
-        class="px-2.5 py-1 bg-gov-navy text-white hover:bg-gov-navy-light rounded font-mono text-[11px] ml-auto"
+        class="px-3 py-1 bg-gov-navy text-white hover:bg-slate-800 rounded-lg font-mono text-[11px] font-bold ml-auto shadow"
       >
-        {{ isHtmlMode ? 'WYSIWYG Mode' : 'HTML Code' }}
+        {{ isHtmlMode ? 'WYSIWYG View' : 'HTML View' }}
       </button>
     </div>
 
@@ -55,16 +45,16 @@
       ref="editorRef"
       contenteditable="true"
       @input="handleInput"
-      class="p-4 min-h-[160px] focus:outline-none text-xs sm:text-sm text-slate-800 leading-relaxed max-w-none prose"
+      class="p-4 min-h-[180px] focus:outline-none text-xs sm:text-sm text-slate-800 leading-relaxed prose max-w-none font-sans"
     ></div>
 
-    <!-- HTML Raw textarea mode -->
+    <!-- Raw HTML textarea -->
     <textarea
       v-else
       v-model="rawContent"
       @input="handleRawInput"
-      rows="6"
-      class="w-full p-4 font-mono text-xs text-slate-900 focus:outline-none bg-slate-900 text-emerald-400"
+      rows="8"
+      class="w-full p-4 font-mono text-xs focus:outline-none bg-slate-950 text-sky-300"
     ></textarea>
   </div>
 </template>

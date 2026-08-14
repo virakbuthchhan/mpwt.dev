@@ -1,109 +1,95 @@
 <template>
   <div class="space-y-8">
     <!-- Header -->
-    <div class="flex flex-wrap items-center justify-between gap-4">
+    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-5">
       <div>
-        <h1 class="text-2xl font-bold text-slate-900">Dashboard Overview</h1>
-        <p class="text-xs text-slate-500">Welcome back, <strong class="text-gov-navy">{{ user?.name }}</strong> ({{ user?.role }})</p>
+        <h1 class="text-2xl font-bold text-slate-900 tracking-tight font-sans">
+          Dashboard Overview
+        </h1>
+        <p class="text-xs text-slate-500 font-sans">
+          Welcome back, <strong class="text-gov-navy">{{ user?.name }}</strong> ({{ user?.role }})
+        </p>
       </div>
 
       <div class="flex items-center gap-2">
-        <NuxtLink
-          to="/admin/news/new"
-          class="px-4 py-2 bg-gov-navy text-white rounded-lg text-xs font-bold hover:bg-gov-navy-light transition shadow flex items-center gap-1.5"
-        >
-          <span>➕</span>
-          <span>Publish Article</span>
-        </NuxtLink>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-full border border-emerald-300">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+          System Online
+        </span>
       </div>
     </div>
 
-    <!-- Stat Cards Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-      <AdminStatCard label="Total News" :value="stats.news" icon="📰" />
-      <AdminStatCard label="IT Projects" :value="stats.projects" icon="🚀" />
-      <AdminStatCard label="Total Staff" :value="stats.staff" icon="👥" />
-      <AdminStatCard label="Open Datasets" :value="stats.datasets" icon="📁" />
-      <AdminStatCard label="Inquiries" :value="stats.inquiries" icon="✉️" />
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <AdminStatCard label="News Articles" :value="newsCount" />
+      <AdminStatCard label="IT Projects" :value="projectsCount" />
+      <AdminStatCard label="Staff Personnel" :value="staffCount" />
+      <AdminStatCard label="Open Datasets" :value="datasetsCount" />
     </div>
 
-    <!-- Quick Management Action Modules -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
-        <h3 class="font-bold text-sm text-slate-900 flex items-center gap-2">
-          <span>📰</span>
-          <span>Content Management</span>
-        </h3>
-        <p class="text-xs text-slate-500">Create, edit, and publish press releases and announcements.</p>
-        <NuxtLink to="/admin/news" class="block w-full py-2 bg-slate-100 hover:bg-slate-200 text-center font-bold text-xs text-slate-800 rounded-lg transition">
-          Manage News →
-        </NuxtLink>
-      </div>
+    <!-- Recent Activity & Inbox Preview Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Recent News Table -->
+      <div class="lg:col-span-7 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h3 class="font-bold text-sm text-slate-900 flex items-center gap-2">
+            <svg class="w-4 h-4 text-gov-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+            </svg>
+            <span>Recent Articles</span>
+          </h3>
+          <NuxtLink to="/admin/news" class="text-xs font-bold text-gov-navy hover:text-gov-gold">
+            Manage All →
+          </NuxtLink>
+        </div>
 
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
-        <h3 class="font-bold text-sm text-slate-900 flex items-center gap-2">
-          <span>🚀</span>
-          <span>Project Roadmap</span>
-        </h3>
-        <p class="text-xs text-slate-500">Track progress, timeline, and deliverables of IT projects.</p>
-        <NuxtLink to="/admin/projects" class="block w-full py-2 bg-slate-100 hover:bg-slate-200 text-center font-bold text-xs text-slate-800 rounded-lg transition">
-          Manage Projects →
-        </NuxtLink>
-      </div>
-
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
-        <h3 class="font-bold text-sm text-slate-900 flex items-center gap-2">
-          <span>👥</span>
-          <span>Staff Directory</span>
-        </h3>
-        <p class="text-xs text-slate-500">Update staff profiles, contact emails, and office units.</p>
-        <NuxtLink to="/admin/staff" class="block w-full py-2 bg-slate-100 hover:bg-slate-200 text-center font-bold text-xs text-slate-800 rounded-lg transition">
-          Manage Staff →
-        </NuxtLink>
-      </div>
-    </div>
-
-    <!-- Recent Activity Feed & Contact Inquiries Snippet -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-      <!-- Recent Activity Feed -->
-      <div class="lg:col-span-7 bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
-        <h3 class="font-bold text-sm text-slate-900 border-b border-slate-100 pb-3 flex items-center justify-between">
-          <span>⚡ Recent System Activity</span>
-          <span class="text-xs font-mono text-slate-400">Live Log</span>
-        </h3>
-
-        <div class="space-y-3">
-          <div v-for="act in activityLog" :key="act.id" class="flex items-start gap-3 text-xs border-b border-slate-50 pb-3">
-            <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
-              {{ act.icon }}
+        <div class="space-y-3 text-xs">
+          <div
+            v-for="item in recentNews"
+            :key="item.id"
+            class="p-3 bg-slate-50 rounded-xl flex items-center justify-between gap-4 border border-slate-100"
+          >
+            <div class="truncate">
+              <div class="font-bold text-slate-900 truncate font-khmer">{{ item.titleKh }}</div>
+              <div class="text-slate-400 text-[11px] font-mono">{{ item.category }} • {{ item.publishedAt }}</div>
             </div>
-            <div>
-              <div class="font-bold text-slate-800">{{ act.action }}</div>
-              <div class="text-slate-500 text-[11px]">{{ act.user }} • {{ act.time }}</div>
-            </div>
+            <span class="px-2 py-0.5 bg-slate-200 text-slate-700 text-[10px] font-bold rounded">
+              {{ item.views }} views
+            </span>
           </div>
         </div>
       </div>
 
-      <!-- Quick Inquiry Snippet -->
-      <div class="lg:col-span-5 bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
-        <h3 class="font-bold text-sm text-slate-900 border-b border-slate-100 pb-3 flex items-center justify-between">
-          <span>📩 Contact Inbox</span>
-          <NuxtLink to="/admin/settings" class="text-xs text-gov-navy font-bold hover:underline">View All</NuxtLink>
-        </h3>
-
-        <div v-if="inquiries.length === 0" class="text-xs text-slate-400 py-6 text-center">
-          No pending inquiries.
+      <!-- Inquiry Messages Inbox -->
+      <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h3 class="font-bold text-sm text-slate-900 flex items-center gap-2">
+            <svg class="w-4 h-4 text-gov-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <span>Inquiry Inbox</span>
+          </h3>
+          <NuxtLink to="/admin/settings" class="text-xs font-bold text-gov-navy hover:text-gov-gold">
+            View Inbox →
+          </NuxtLink>
         </div>
 
-        <div v-else class="space-y-3">
-          <div v-for="iq in inquiries.slice(0, 3)" :key="iq.id" class="p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-1 text-xs">
-            <div class="flex items-center justify-between font-bold text-slate-800">
-              <span>{{ iq.name }}</span>
-              <span class="text-[10px] text-slate-400 font-mono">{{ iq.createdAt }}</span>
+        <div v-if="inquiries.length === 0" class="text-xs text-slate-400 py-6 text-center">
+          No new messages in inbox.
+        </div>
+
+        <div v-else class="space-y-3 text-xs">
+          <div
+            v-for="inq in inquiries.slice(0, 3)"
+            :key="inq.id"
+            class="p-3 bg-slate-50 rounded-xl space-y-1 border border-slate-100"
+          >
+            <div class="flex items-center justify-between font-bold text-slate-900">
+              <span>{{ inq.name }}</span>
+              <span class="text-[10px] text-slate-400 font-mono">{{ inq.createdAt }}</span>
             </div>
-            <div class="text-gov-navy font-semibold">{{ iq.subject }}</div>
-            <p class="text-slate-600 truncate">{{ iq.message }}</p>
+            <div class="text-gov-gold font-bold text-[11px] truncate">{{ inq.subject }}</div>
+            <p class="text-slate-600 text-[11px] line-clamp-2">{{ inq.message }}</p>
           </div>
         </div>
       </div>
@@ -125,23 +111,14 @@ const { user } = useAuth()
 const { data: newsData } = await useFetch<{ data: any[] }>('/api/news')
 const { data: projectsData } = await useFetch<{ data: any[] }>('/api/projects')
 const { data: staffData } = await useFetch<{ data: any[] }>('/api/staff')
-const { data: datasetData } = await useFetch<{ data: any[] }>('/api/open-data')
-const { data: inquiryData } = await useFetch<{ data: any[] }>('/api/inquiries')
+const { data: openData } = await useFetch<{ data: any[] }>('/api/open-data')
+const { data: inquiriesData } = await useFetch<{ data: any[] }>('/api/inquiries')
 
-const stats = computed(() => ({
-  news: newsData.value?.data.length || 0,
-  projects: projectsData.value?.data.length || 0,
-  staff: staffData.value?.data.length || 0,
-  datasets: datasetData.value?.data.length || 0,
-  inquiries: inquiryData.value?.data.length || 0
-}))
+const newsCount = computed(() => newsData.value?.data?.length || 0)
+const projectsCount = computed(() => projectsData.value?.data?.length || 0)
+const staffCount = computed(() => staffData.value?.data?.length || 0)
+const datasetsCount = computed(() => openData.value?.data?.length || 0)
 
-const inquiries = computed(() => inquiryData.value?.data || [])
-
-const activityLog = [
-  { id: 1, action: 'Published article "Driver License System Launch"', user: 'Super Admin', time: '10 mins ago', icon: '📰' },
-  { id: 2, action: 'Updated Expressway ITS project progress to 85%', user: 'Content Editor', time: '1 hour ago', icon: '🚀' },
-  { id: 3, action: 'Added open dataset "Vehicle Statistics 2025"', user: 'Super Admin', time: '3 hours ago', icon: '📁' },
-  { id: 4, action: 'Updated staff contact directory', user: 'Content Editor', time: '1 day ago', icon: '👥' }
-]
+const recentNews = computed(() => newsData.value?.data?.slice(0, 4) || [])
+const inquiries = computed(() => inquiriesData.value?.data || [])
 </script>

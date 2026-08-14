@@ -13,20 +13,21 @@ module.exports = {
     extend: {
       colors: {
         gov: {
-          navy: '#1a2e5a',
-          'navy-dark': '#101e3d',
-          'navy-light': '#29437e',
+          navy: '#0f172a',
+          'navy-dark': '#090d16',
+          'navy-light': '#1e293b',
           gold: '#c9a84c',
           'gold-light': '#e5cb7a',
           'gold-dark': '#9b7d2f',
-          red: '#c02b2b',
-          surface: '#f5f6fa',
+          accent: '#38bdf8',
+          surface: '#f8fafc',
+          card: '#ffffff',
           border: '#e2e8f0'
         }
       },
       fontFamily: {
-        khmer: ['Noto Sans Khmer', 'Battambang', 'sans-serif'],
-        latin: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['"Google Sans"', '"Google Sans Text"', 'Inter', 'system-ui', 'sans-serif'],
+        khmer: ['"Noto Sans Khmer"', 'Battambang', 'sans-serif'],
         dyslexic: ['OpenDyslexic', 'Comic Sans MS', 'sans-serif']
       }
     }

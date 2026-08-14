@@ -1,86 +1,70 @@
 <template>
-  <div class="min-h-screen bg-gov-navy-dark flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 space-y-6 border border-slate-700">
-      <!-- Header -->
+  <div class="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
+    <!-- Grid overlay -->
+    <div class="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none"></div>
+
+    <div class="w-full max-w-md bg-slate-900/90 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-slate-800 space-y-6 relative z-10">
       <div class="text-center space-y-2">
-        <div class="w-16 h-16 rounded-2xl bg-gov-navy text-gov-gold flex items-center justify-center text-2xl font-bold mx-auto border-2 border-gov-gold shadow-lg">
-          DITS
+        <div class="w-14 h-14 rounded-2xl bg-gov-navy text-gov-gold flex items-center justify-center mx-auto shadow-lg border-2 border-gov-gold">
+          <svg class="w-7 h-7 text-gov-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
         </div>
-        <h1 class="text-xl font-bold text-slate-900">
-          {{ $t('admin.loginTitle') }}
-        </h1>
-        <p class="text-xs text-slate-500 font-medium">
-          {{ $t('admin.loginSub') }}
-        </p>
+        <h1 class="text-2xl font-bold text-white tracking-tight">MPWT Admin CMS</h1>
+        <p class="text-xs text-slate-400 font-mono">Department of IT Systems • mpwt.dev</p>
       </div>
 
-      <!-- Quick Demo Login Roles Buttons -->
-      <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2">
-        <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block text-center">
-          {{ $t('admin.quickLogin') }}
-        </span>
-        <div class="grid grid-cols-3 gap-1.5 text-xs font-bold">
-          <button
-            @click="quickLogin('admin')"
-            class="py-1.5 bg-gov-navy text-gov-gold rounded hover:bg-gov-navy-light transition shadow text-[11px]"
-          >
-            Super Admin
-          </button>
-          <button
-            @click="quickLogin('editor')"
-            class="py-1.5 bg-blue-600 text-white rounded hover:bg-blue-700 transition shadow text-[11px]"
-          >
-            Editor
-          </button>
-          <button
-            @click="quickLogin('viewer')"
-            class="py-1.5 bg-slate-700 text-slate-200 rounded hover:bg-slate-800 transition shadow text-[11px]"
-          >
-            Viewer
-          </button>
-        </div>
+      <div v-if="errorMsg" class="p-3.5 bg-rose-950/80 border border-rose-800 text-rose-300 rounded-xl text-xs font-bold text-center">
+        {{ errorMsg }}
       </div>
 
-      <!-- Error Alert -->
-      <div v-if="errorMessage" class="p-3 bg-rose-50 border border-rose-300 text-rose-700 rounded-lg text-xs font-semibold">
-        ⚠️ {{ errorMessage }}
-      </div>
-
-      <!-- Form -->
-      <form @submit.prevent="handleLogin" class="space-y-4 text-xs sm:text-sm">
-        <div class="space-y-1">
-          <label class="font-bold text-slate-700 block">{{ $t('admin.username') }}</label>
+      <form @submit.prevent="handleLogin" class="space-y-4 text-xs">
+        <div class="space-y-1.5">
+          <label class="font-bold text-slate-300 block">Username</label>
           <input
             v-model="username"
             required
             type="text"
             placeholder="admin / editor / viewer"
-            class="w-full p-3 bg-slate-50 border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-gov-gold font-mono"
+            class="w-full p-3.5 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-gov-gold font-mono"
           />
         </div>
 
-        <div class="space-y-1">
-          <label class="font-bold text-slate-700 block">{{ $t('admin.password') }}</label>
+        <div class="space-y-1.5">
+          <label class="font-bold text-slate-300 block">Password</label>
           <input
             v-model="password"
+            required
             type="password"
             placeholder="••••••••"
-            class="w-full p-3 bg-slate-50 border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-gov-gold font-mono"
+            class="w-full p-3.5 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-gov-gold font-mono"
           />
         </div>
 
         <button
           type="submit"
           :disabled="loading"
-          class="w-full py-3 bg-gov-navy hover:bg-gov-navy-light text-white font-bold rounded-xl shadow-lg transition text-xs sm:text-sm"
+          class="w-full py-4 bg-gov-gold hover:bg-gov-gold-light text-gov-navy font-bold rounded-xl shadow-lg transition text-xs flex items-center justify-center gap-2"
         >
           <span v-if="loading">Authenticating...</span>
-          <span v-else>{{ $t('admin.loginBtn') }}</span>
+          <span v-else>Sign In to Dashboard</span>
         </button>
       </form>
 
-      <div class="text-center text-[11px] text-slate-400 font-mono">
-        Official CMS Admin Portal • mpwt.dev
+      <!-- Quick Demo Login Buttons -->
+      <div class="pt-4 border-t border-slate-800 space-y-2 text-[11px]">
+        <div class="text-slate-500 font-bold text-center uppercase tracking-wider">Quick Demo Login</div>
+        <div class="grid grid-cols-3 gap-2 font-mono">
+          <button @click="fillDemo('admin', 'admin123')" class="p-2 bg-slate-950 hover:bg-slate-800 text-gov-gold rounded-lg border border-slate-800 font-bold truncate">
+            Super Admin
+          </button>
+          <button @click="fillDemo('editor', 'password')" class="p-2 bg-slate-950 hover:bg-slate-800 text-sky-400 rounded-lg border border-slate-800 font-bold truncate">
+            Editor
+          </button>
+          <button @click="fillDemo('viewer', 'password')" class="p-2 bg-slate-950 hover:bg-slate-800 text-slate-400 rounded-lg border border-slate-800 font-bold truncate">
+            Viewer
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -89,36 +73,35 @@
 <script setup lang="ts">
 import { useAuth } from '~/composables/useAuth'
 
-definePageMeta({
-  layout: false
-})
+definePageMeta({ layout: false })
 
-useSeoMeta({
-  title: 'Admin Login | MPWT IT Systems',
-  robots: 'noindex, nofollow'
-})
+const { login } = useAuth()
+const router = useRouter()
 
-const username = ref('admin')
-const password = ref('admin123')
-const errorMessage = ref('')
+const username = ref('')
+const password = ref('')
+const loading = ref(false)
+const errorMsg = ref('')
 
-const { login, loading } = useAuth()
+function fillDemo(u: string, p: string) {
+  username.value = u
+  password.value = p
+}
 
 async function handleLogin() {
-  errorMessage.value = ''
+  loading.value = true
+  errorMsg.value = ''
   try {
     const success = await login(username.value, password.value)
     if (success) {
-      navigateTo('/admin')
+      router.push('/admin')
+    } else {
+      errorMsg.value = 'Invalid username or password'
     }
   } catch (err: any) {
-    errorMessage.value = err.statusMessage || 'Invalid credentials'
+    errorMsg.value = err.message || 'Login failed'
+  } finally {
+    loading.value = false
   }
-}
-
-function quickLogin(userRole: string) {
-  username.value = userRole
-  password.value = 'password'
-  handleLogin()
 }
 </script>

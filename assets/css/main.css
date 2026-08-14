@@ -6,19 +6,20 @@
   :root {
     --font-scale: 1;
   }
-  
+
   html {
-    font-family: 'Noto Sans Khmer', 'Inter', system-ui, sans-serif;
+    font-family: 'Google Sans', 'Google Sans Text', 'Noto Sans Khmer', 'Inter', system-ui, sans-serif;
     font-size: calc(16px * var(--font-scale, 1));
     scroll-behavior: smooth;
+    letter-spacing: -0.01em;
   }
 
   body {
-    @apply bg-gov-surface text-slate-900 transition-colors duration-200;
+    @apply bg-slate-50 text-slate-900 transition-colors duration-300 antialiased selection:bg-sky-500 selection:text-white;
   }
 }
 
-/* Accessibility Modes */
+/* Accessibility High Contrast */
 .accessibility-high-contrast {
   @apply bg-black text-yellow-300 !important;
 }
@@ -40,26 +41,53 @@
 }
 
 .accessibility-dyslexic {
-  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif !important;
+  font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important;
   letter-spacing: 0.05em;
   word-spacing: 0.1em;
 }
 
-/* Custom Utilities */
-.glass-effect {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
+/* Glassmorphism & Modern Micro Utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-.dark-glass {
-  background: rgba(26, 46, 90, 0.92);
-  backdrop-filter: blur(12px);
+.dark-glass-panel {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.gold-gradient {
-  background: linear-gradient(135deg, #c9a84c 0%, #e5cb7a 50%, #9b7d2f 100%);
+.gold-gradient-text {
+  background: linear-gradient(135deg, #e5cb7a 0%, #c9a84c 50%, #9b7d2f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.navy-gradient {
-  background: linear-gradient(135deg, #1a2e5a 0%, #101e3d 100%);
+.sky-gradient-text {
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c9a84c;
 }

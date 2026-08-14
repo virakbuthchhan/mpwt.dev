@@ -1,20 +1,20 @@
 <template>
-  <div class="border border-slate-200 rounded-xl bg-white overflow-hidden shadow-sm hover:shadow transition">
+  <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden shadow-sm hover:shadow transition">
     <button
       @click="isOpen = !isOpen"
       class="w-full p-5 text-left flex items-center justify-between gap-4 focus:outline-none bg-slate-50/50 hover:bg-slate-100/80 transition"
     >
       <div class="flex items-center gap-3">
-        <span class="px-2.5 py-1 bg-gov-navy text-gov-gold rounded text-[11px] font-bold uppercase shrink-0">
+        <span class="px-2.5 py-1 bg-gov-navy text-gov-gold rounded-md text-[10px] font-bold uppercase tracking-wider shrink-0 border border-gov-gold/30">
           {{ item.category }}
         </span>
-        <h3 class="text-sm sm:text-base font-bold text-slate-900 leading-snug">
+        <h3 class="text-sm sm:text-base font-bold text-slate-900 leading-snug font-khmer">
           {{ question }}
         </h3>
       </div>
 
       <svg
-        :class="['w-5 h-5 text-slate-500 transition-transform duration-300 shrink-0', isOpen ? 'rotate-180 text-gov-navy' : '']"
+        :class="['w-5 h-5 text-slate-400 transition-transform duration-300 shrink-0', isOpen ? 'rotate-180 text-gov-navy' : '']"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -23,7 +23,7 @@
       </svg>
     </button>
 
-    <div v-show="isOpen" class="p-5 border-t border-slate-100 text-xs sm:text-sm text-slate-700 leading-relaxed bg-white">
+    <div v-show="isOpen" class="p-5 border-t border-slate-100 text-xs sm:text-sm text-slate-700 leading-relaxed bg-white font-sans">
       {{ answer }}
     </div>
   </div>
