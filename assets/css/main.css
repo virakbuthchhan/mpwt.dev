@@ -10,26 +10,70 @@
 
   html {
     font-family: 'Google Sans', 'Google Sans Text', 'Noto Sans Khmer', 'Inter', system-ui, sans-serif;
-    font-size: calc(16px * var(--font-scale, 1));
+    font-size: calc(16px * var(--font-scale, 1)) !important;
     scroll-behavior: smooth;
     letter-spacing: -0.01em;
   }
 
-  html.font-google-sans {
+  /* Live Dynamic Font Families */
+  html.font-google-sans,
+  html.font-google-sans body,
+  html.font-google-sans button,
+  html.font-google-sans input,
+  html.font-google-sans select,
+  html.font-google-sans textarea {
     font-family: 'Google Sans', 'Google Sans Text', 'Noto Sans Khmer', sans-serif !important;
   }
 
-  html.font-inter {
+  html.font-inter,
+  html.font-inter body,
+  html.font-inter button,
+  html.font-inter input,
+  html.font-inter select,
+  html.font-inter textarea {
     font-family: 'Inter', 'Noto Sans Khmer', sans-serif !important;
   }
 
-  html.font-battambang {
+  html.font-battambang,
+  html.font-battambang body,
+  html.font-battambang button,
+  html.font-battambang input,
+  html.font-battambang select,
+  html.font-battambang textarea {
     font-family: 'Battambang', 'Noto Sans Khmer', sans-serif !important;
+  }
+
+  html.accessibility-dyslexic,
+  html.accessibility-dyslexic body,
+  html.accessibility-dyslexic button,
+  html.accessibility-dyslexic input,
+  html.accessibility-dyslexic select,
+  html.accessibility-dyslexic textarea {
+    font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important;
+    letter-spacing: 0.05em !important;
+    word-spacing: 0.1em !important;
   }
 
   body {
     @apply bg-slate-100 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 antialiased selection:bg-[#293375] selection:text-white;
   }
+}
+
+/* Live Dynamic Primary Theme Color Overrides */
+.bg-gov-navy {
+  background-color: var(--primary-color, #293375) !important;
+}
+
+.text-gov-navy {
+  color: var(--primary-color, #293375) !important;
+}
+
+.border-gov-navy {
+  border-color: var(--primary-color, #293375) !important;
+}
+
+.ring-gov-navy {
+  --tw-ring-color: var(--primary-color, #293375) !important;
 }
 
 /* Accessibility High Contrast */
@@ -51,12 +95,6 @@
 .accessibility-high-contrast .bg-slate-50,
 .accessibility-high-contrast .bg-slate-100 {
   @apply bg-[#1b2252] border border-yellow-400 text-yellow-300 !important;
-}
-
-.accessibility-dyslexic {
-  font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important;
-  letter-spacing: 0.05em;
-  word-spacing: 0.1em;
 }
 
 /* Glassmorphism Design Utilities */
@@ -93,7 +131,7 @@
 }
 
 .dark-glass-panel {
-  background: rgba(41, 51, 117, 0.85);
+  background: var(--primary-color, #293375);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -123,7 +161,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #293375;
+  background: var(--primary-color, #293375);
   border-radius: 4px;
 }
 
