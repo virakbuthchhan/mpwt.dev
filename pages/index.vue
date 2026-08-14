@@ -25,11 +25,11 @@
       </div>
     </section>
 
-    <!-- Quick Links Grid -->
+    <!-- Quick Links Grid (Redesigned Glassmorphism Cards) -->
     <section class="max-w-7xl mx-auto py-16 px-4 sm:px-8 space-y-8">
       <div class="flex items-center justify-between">
         <div>
-          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 font-khmer">
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 font-khmer">
             {{ $t('home.quickLinks') }}
           </h2>
           <div class="w-16 h-1 bg-gov-gold mt-1.5 rounded-full"></div>
@@ -41,12 +41,18 @@
           v-for="link in quickLinks"
           :key="link.path"
           :to="link.path"
-          class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-gov-gold hover:shadow-xl transition-all duration-300 text-center space-y-3 group"
+          class="glass-card p-6 rounded-3xl border border-white/80 dark:border-slate-800 hover:border-gov-gold/70 shadow-sm hover:shadow-2xl transition-all duration-500 text-center space-y-3.5 group transform hover:-translate-y-1.5 relative overflow-hidden"
         >
-          <div class="w-13 h-13 rounded-2xl bg-gov-navy/10 text-gov-navy flex items-center justify-center mx-auto group-hover:bg-gov-navy group-hover:text-gov-gold transition duration-300 shadow-inner">
-            <component :is="link.icon" class="w-6 h-6" />
+          <!-- Subtle Glow Overlay on Hover -->
+          <div class="absolute inset-0 bg-gradient-to-b from-gov-gold/0 via-gov-gold/0 to-gov-gold/5 opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"></div>
+
+          <!-- Fixed Square Icon Badge -->
+          <div class="w-12 h-12 rounded-2xl bg-gov-navy/10 dark:bg-gov-navy/30 text-gov-navy dark:text-gov-gold flex items-center justify-center mx-auto group-hover:bg-gov-navy group-hover:text-gov-gold transition duration-500 shadow-sm border border-gov-navy/15 dark:border-gov-navy-light/40 shrink-0">
+            <component :is="link.icon" class="w-6 h-6 text-current" />
           </div>
-          <div class="text-xs font-bold text-slate-800 group-hover:text-gov-navy transition">
+
+          <!-- Label -->
+          <div class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-gov-navy dark:group-hover:text-gov-gold transition font-khmer leading-snug">
             {{ $t(link.label) }}
           </div>
         </NuxtLink>
@@ -54,11 +60,11 @@
     </section>
 
     <!-- Latest News Section -->
-    <section class="bg-slate-100/70 py-16 px-4 sm:px-8 border-y border-slate-200">
+    <section class="bg-slate-100/70 dark:bg-slate-900/40 py-16 px-4 sm:px-8 border-y border-slate-200 dark:border-slate-800">
       <div class="max-w-7xl mx-auto space-y-8">
         <div class="flex items-center justify-between">
           <div>
-            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 font-khmer">
+            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 font-khmer">
               {{ $t('home.latestNews') }}
             </h2>
             <div class="w-16 h-1 bg-gov-gold mt-1.5 rounded-full"></div>
@@ -66,7 +72,7 @@
 
           <NuxtLink
             to="/news"
-            class="text-xs sm:text-sm font-bold text-gov-navy hover:text-gov-gold transition flex items-center gap-1.5 bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-200"
+            class="text-xs sm:text-sm font-bold text-gov-navy dark:text-gov-gold hover:text-gov-navy-light transition flex items-center gap-1.5 bg-white/80 dark:bg-slate-800 px-4 py-2 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700"
           >
             <span>{{ $t('home.viewAllNews') }}</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -76,7 +82,7 @@
         </div>
 
         <div v-if="newsPending" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div v-for="i in 3" :key="i" class="h-72 bg-slate-200 animate-pulse rounded-2xl"></div>
+          <div v-for="i in 3" :key="i" class="h-72 bg-slate-200 dark:bg-slate-800 animate-pulse rounded-2xl"></div>
         </div>
 
         <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -89,7 +95,7 @@
     <section class="max-w-7xl mx-auto py-16 px-4 sm:px-8 space-y-8">
       <div class="flex items-center justify-between">
         <div>
-          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 font-khmer">
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 font-khmer">
             {{ $t('home.projectHighlights') }}
           </h2>
           <div class="w-16 h-1 bg-gov-gold mt-1.5 rounded-full"></div>
@@ -97,7 +103,7 @@
 
         <NuxtLink
           to="/projects"
-          class="text-xs sm:text-sm font-bold text-gov-navy hover:text-gov-gold transition flex items-center gap-1.5 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200"
+          class="text-xs sm:text-sm font-bold text-gov-navy dark:text-gov-gold hover:text-gov-navy-light transition flex items-center gap-1.5 bg-slate-50 dark:bg-slate-800 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700"
         >
           <span>{{ $t('home.viewAllProjects') }}</span>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -167,7 +173,7 @@ const featuredTech = computed(() => techData.value?.data.slice(0, 2) || [])
 
 function createSvgIcon(d: string) {
   return () =>
-    h('svg', { class: 'w-6 h-6 text-gov-navy group-hover:text-gov-gold transition', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+    h('svg', { class: 'w-6 h-6 text-current transition duration-300', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
       h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d })
     ])
 }
