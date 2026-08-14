@@ -5,6 +5,7 @@
 @layer base {
   :root {
     --font-scale: 1;
+    --primary-color: #293375;
   }
 
   html {
@@ -14,8 +15,20 @@
     letter-spacing: -0.01em;
   }
 
+  html.font-google-sans {
+    font-family: 'Google Sans', 'Google Sans Text', 'Noto Sans Khmer', sans-serif !important;
+  }
+
+  html.font-inter {
+    font-family: 'Inter', 'Noto Sans Khmer', sans-serif !important;
+  }
+
+  html.font-battambang {
+    font-family: 'Battambang', 'Noto Sans Khmer', sans-serif !important;
+  }
+
   body {
-    @apply bg-slate-50 text-slate-900 transition-colors duration-300 antialiased selection:bg-[#293375] selection:text-white;
+    @apply bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 antialiased selection:bg-[#293375] selection:text-white;
   }
 }
 

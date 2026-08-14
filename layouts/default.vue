@@ -1,20 +1,27 @@
 <template>
-  <div class="min-h-screen flex flex-col bg-gov-surface text-slate-900 font-latin">
+  <div class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-300">
+    <!-- Top Announcement Ticker -->
     <AnnouncementTicker />
+
+    <!-- Main Public Header -->
     <AppHeader />
-    <main class="flex-1">
+
+    <!-- Dynamic Page Content -->
+    <main class="flex-grow">
       <slot />
     </main>
-    <AccessibilityToolbar />
+
+    <!-- Interactive Settings & Display Drawer -->
+    <SettingsDrawer />
+
+    <!-- Public Footer -->
     <AppFooter />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useSiteStore } from '~/stores/site'
-const siteStore = useSiteStore()
-
-onMounted(() => {
-  siteStore.fetchSettings()
-})
+import AnnouncementTicker from '~/components/AnnouncementTicker.vue'
+import AppHeader from '~/components/AppHeader.vue'
+import AppFooter from '~/components/AppFooter.vue'
+import SettingsDrawer from '~/components/SettingsDrawer.vue'
 </script>
