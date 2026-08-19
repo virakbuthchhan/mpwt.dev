@@ -24,47 +24,76 @@
     />
 
     <!-- Create / Edit Modal -->
-    <div v-if="showModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-      <div class="bg-white rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative text-xs sm:text-sm">
-        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
-          <h3 class="font-bold text-slate-900 text-base">{{ editingId ? 'Edit FAQ Item' : 'Add FAQ Item' }}</h3>
-          <button @click="showModal = false" class="text-slate-400 font-bold">✕</button>
+    <div v-if="showModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4">
+      <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 space-y-5 shadow-2xl relative border border-slate-100">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-gov-navy/10 text-gov-navy flex items-center justify-center font-bold">
+              <svg class="w-5 h-5 text-gov-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-slate-900 text-base sm:text-lg leading-tight">{{ editingId ? 'Edit FAQ Item' : 'Add FAQ Item' }}</h3>
+              <p class="text-xs text-slate-500">Configure bilingual question and answer entries</p>
+            </div>
+          </div>
+          <button @click="showModal = false" class="p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition">✕</button>
         </div>
 
-        <form @submit.prevent="saveFaq" class="space-y-3">
-          <div>
-            <label class="font-bold text-slate-700 block">Category</label>
-            <select v-model="form.category" class="w-full p-2 bg-slate-50 border border-slate-300 rounded font-semibold">
-              <option value="General">General</option>
-              <option value="Services">Services</option>
-              <option value="Support">IT Support</option>
-              <option value="OpenData">Open Data</option>
-            </select>
-          </div>
+        <form @submit.prevent="saveFaq" class="space-y-4">
+          <BaseSelect
+            v-model="form.category"
+            label="Category"
+            icon="folder"
+            required
+            :options="['General', 'Services', 'IT Support', 'Open Data']"
+          />
 
-          <div>
-            <label class="font-bold text-slate-700 block">Question (Khmer)</label>
-            <input v-model="form.questionKh" required type="text" class="w-full p-2 bg-slate-50 border border-slate-300 rounded font-khmer" />
-          </div>
+          <BaseInput
+            v-model="form.questionKh"
+            label="Question (Khmer)"
+            placeholder="សំណួរជាភាសាខ្មែរ..."
+            fontKhmer
+            required
+          />
 
-          <div>
-            <label class="font-bold text-slate-700 block">Question (English)</label>
-            <input v-model="form.questionEn" required type="text" class="w-full p-2 bg-slate-50 border border-slate-300 rounded" />
-          </div>
+          <BaseInput
+            v-model="form.questionEn"
+            label="Question (English)"
+            placeholder="e.g. How can I request API access?"
+            required
+          />
 
-          <div>
-            <label class="font-bold text-slate-700 block">Answer (Khmer)</label>
-            <textarea v-model="form.answerKh" rows="3" required class="w-full p-2 bg-slate-50 border border-slate-300 rounded font-khmer"></textarea>
-          </div>
+          <BaseTextarea
+            v-model="form.answerKh"
+            label="Answer (Khmer)"
+            placeholder="ចម្លើយជាភាសាខ្មែរ..."
+            fontKhmer
+            required
+            rows="3"
+          />
 
-          <div>
-            <label class="font-bold text-slate-700 block">Answer (English)</label>
-            <textarea v-model="form.answerEn" rows="3" required class="w-full p-2 bg-slate-50 border border-slate-300 rounded"></textarea>
-          </div>
+          <BaseTextarea
+            v-model="form.answerEn"
+            label="Answer (English)"
+            placeholder="Detailed answer explanation..."
+            required
+            rows="3"
+          />
 
-          <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
-            <button type="button" @click="showModal = false" class="px-4 py-2 bg-slate-100 text-slate-700 rounded font-bold">Cancel</button>
-            <button type="submit" class="px-5 py-2 bg-gov-navy text-white rounded font-bold">Save FAQ</button>
+          <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+            <BaseButton type="button" variant="secondary" @click="showModal = false">
+              Cancel
+            </BaseButton>
+            <BaseButton type="submit" variant="primary">
+              <template #icon-left>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </template>
+              Save FAQ
+            </BaseButton>
           </div>
         </form>
       </div>

@@ -4,10 +4,8 @@
       <!-- Col 1: Department Info -->
       <div class="md:col-span-2 space-y-4">
         <div class="flex items-center gap-3.5">
-          <div class="w-12 h-12 rounded-2xl bg-gov-navy flex items-center justify-center text-gov-gold border-2 border-gov-gold font-bold text-sm shadow-lg">
-            <svg class="w-6 h-6 text-gov-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
+          <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center p-1 border-2 border-gov-gold shadow-lg overflow-hidden shrink-0">
+            <img src="/logo.png" alt="MPWT Logo" class="w-full h-full object-contain" />
           </div>
           <div>
             <h3 class="text-white font-bold text-base sm:text-lg tracking-tight">

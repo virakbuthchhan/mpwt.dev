@@ -45,11 +45,9 @@
     <!-- Main Branding Header -->
     <div class="max-w-7xl mx-auto py-3.5 px-4 sm:px-8 flex items-center justify-between gap-4">
       <NuxtLink to="/" class="flex items-center gap-3.5 group">
-        <!-- Official Crest Vector Emblem -->
-        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gov-navy flex items-center justify-center text-gov-gold font-bold shadow-lg border-2 border-gov-gold/80 group-hover:scale-105 transition transform">
-          <svg class="w-7 h-7 text-gov-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V11m0 0L9 14m3-3l3 3m-3-3v8" />
-          </svg>
+        <!-- Official Logo Emblem -->
+        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white flex items-center justify-center p-1 shadow-md border-2 border-gov-gold/80 group-hover:scale-105 transition transform overflow-hidden">
+          <img src="/logo.png" alt="MPWT Logo" class="w-full h-full object-contain" />
         </div>
 
         <div>

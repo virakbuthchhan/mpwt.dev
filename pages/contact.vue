@@ -77,60 +77,61 @@
           ✓ {{ $t('contact.successMessage') }}
         </div>
 
-        <form @submit.prevent="submitInquiry" class="space-y-4 text-xs sm:text-sm font-sans">
+        <form @submit.prevent="submitInquiry" class="space-y-4 font-sans">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="space-y-1.5">
-              <label class="font-bold text-slate-700 block">{{ $t('contact.name') }} *</label>
-              <input
-                v-model="form.name"
-                required
-                type="text"
-                :placeholder="$t('contact.namePlaceholder')"
-                class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-gov-gold"
-              />
-            </div>
-            <div class="space-y-1.5">
-              <label class="font-bold text-slate-700 block">{{ $t('contact.email') }} *</label>
-              <input
-                v-model="form.email"
-                required
-                type="email"
-                :placeholder="$t('contact.emailPlaceholder')"
-                class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-gov-gold"
-              />
-            </div>
-          </div>
-
-          <div class="space-y-1.5">
-            <label class="font-bold text-slate-700 block">{{ $t('contact.subject') }} *</label>
-            <input
-              v-model="form.subject"
+            <BaseInput
+              v-model="form.name"
+              :label="`${$t('contact.name')}`"
+              :placeholder="$t('contact.namePlaceholder')"
               required
-              type="text"
-              :placeholder="$t('contact.subjectPlaceholder')"
-              class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-gov-gold"
+              icon="user"
+              size="lg"
+            />
+            <BaseInput
+              v-model="form.email"
+              type="email"
+              :label="`${$t('contact.email')}`"
+              :placeholder="$t('contact.emailPlaceholder')"
+              required
+              icon="mail"
+              fontMono
+              size="lg"
             />
           </div>
 
-          <div class="space-y-1.5">
-            <label class="font-bold text-slate-700 block">{{ $t('contact.message') }} *</label>
-            <textarea
-              v-model="form.message"
-              required
-              rows="5"
-              :placeholder="$t('contact.messagePlaceholder')"
-              class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-gov-gold"
-            ></textarea>
-          </div>
+          <BaseInput
+            v-model="form.subject"
+            :label="`${$t('contact.subject')}`"
+            :placeholder="$t('contact.subjectPlaceholder')"
+            required
+            icon="tag"
+            size="lg"
+          />
 
-          <button
+          <BaseTextarea
+            v-model="form.message"
+            :label="`${$t('contact.message')}`"
+            :placeholder="$t('contact.messagePlaceholder')"
+            required
+            rows="5"
+            maxlength="1000"
+            showCounter
+          />
+
+          <BaseButton
             type="submit"
-            :disabled="submitting"
-            class="w-full py-4 bg-gov-navy hover:bg-slate-800 text-white font-bold rounded-2xl shadow-lg transition text-xs sm:text-sm flex items-center justify-center gap-2"
+            variant="primary"
+            size="lg"
+            :loading="submitting"
+            class="w-full shadow-lg"
           >
-            <span v-if="submitting">{{ $t('contact.sending') }}</span>
-            <span v-else>{{ $t('contact.send') }}</span>
-          </button>
+            <template #icon-right>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </template>
+            {{ $t('contact.send') }}
+          </BaseButton>
         </form>
       </div>
     </div>

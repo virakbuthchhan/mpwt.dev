@@ -1,55 +1,62 @@
 <template>
-  <aside class="w-64 bg-gov-navy-dark text-slate-200 min-h-screen flex flex-col justify-between border-r border-gov-navy-light/40 shrink-0">
+  <aside class="w-68 bg-gov-navy-dark text-slate-200 min-h-screen flex flex-col justify-between border-r border-gov-navy-light/40 shrink-0 shadow-2xl relative z-40">
     <div>
-      <!-- Header Branding -->
-      <div class="p-6 border-b border-gov-navy-light/40 flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gov-navy text-gov-gold flex items-center justify-center font-bold shadow-lg border border-gov-gold/40">
-          <svg class="w-5 h-5 text-gov-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-          </svg>
+      <!-- Header Branding (v-app-bar / v-toolbar header style) -->
+      <div class="p-5 border-b border-gov-navy-light/40 flex items-center gap-3 bg-gov-navy/40">
+        <div class="w-11 h-11 rounded-2xl bg-white flex items-center justify-center p-1 shadow-lg border-2 border-gov-gold/60 overflow-hidden shrink-0">
+          <img src="/logo.png" alt="MPWT Logo" class="w-full h-full object-contain" />
         </div>
         <div>
-          <h2 class="text-white font-bold text-sm tracking-tight">MPWT CMS</h2>
-          <span class="text-[11px] text-gov-gold font-mono">mpwt.dev/admin</span>
+          <h2 class="text-white font-extrabold text-sm tracking-tight font-sans">MPWT CMS</h2>
+          <span class="text-[10.5px] text-gov-gold font-mono tracking-wide bg-gov-gold/10 px-1.5 py-0.5 rounded border border-gov-gold/20">
+            mpwt.dev/admin
+          </span>
         </div>
       </div>
 
-      <!-- Navigation Links -->
-      <nav class="p-4 space-y-1.5 text-xs font-bold">
+      <!-- Navigation Links (v-list & v-list-item style) -->
+      <nav class="p-3.5 space-y-1 text-xs font-bold">
+        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-3 py-2">
+          Management Portal
+        </div>
         <NuxtLink
           v-for="item in menuItems"
           :key="item.path"
           :to="item.path"
-          class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-gov-navy hover:text-gov-gold transition"
-          active-class="bg-gov-navy text-gov-gold font-bold border-l-4 border-gov-gold shadow-md"
+          class="flex items-center gap-3 px-3.5 py-3 rounded-2xl transition-all duration-200 text-slate-300 hover:bg-gov-navy hover:text-white group relative"
+          active-class="bg-gov-gold text-gov-navy font-bold shadow-lg shadow-gov-gold/20 hover:bg-gov-gold hover:text-gov-navy"
         >
-          <component :is="item.icon" class="w-4 h-4 text-gov-gold shrink-0" />
-          <span>{{ item.label }}</span>
+          <component :is="item.icon" class="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" />
+          <span class="tracking-wide">{{ item.label }}</span>
         </NuxtLink>
       </nav>
     </div>
 
-    <!-- User Profile & Logout -->
-    <div class="p-4 border-t border-gov-navy-light/40 space-y-3">
-      <div v-if="user" class="flex items-center gap-3">
-        <img :src="user.avatar" :alt="user.name" class="w-9 h-9 rounded-full object-cover border-2 border-gov-gold" />
+    <!-- User Profile & Logout (v-card footer style) -->
+    <div class="p-4 border-t border-gov-navy-light/40 space-y-3 bg-gov-navy/30">
+      <div v-if="user" class="flex items-center gap-3 p-2 bg-gov-navy-dark/80 rounded-2xl border border-gov-navy-light/40 shadow-inner">
+        <img :src="user.avatar" :alt="user.name" class="w-10 h-10 rounded-full object-cover border-2 border-gov-gold shadow-md" />
         <div class="truncate">
           <div class="text-white font-bold text-xs truncate">{{ user.name }}</div>
-          <span class="inline-block px-2 py-0.5 rounded text-[10px] bg-gov-navy text-gov-gold font-bold border border-gov-gold/40">
+          <span class="inline-block px-2 py-0.5 rounded text-[9.5px] bg-gov-gold/20 text-gov-gold font-bold border border-gov-gold/40">
             {{ user.role }}
           </span>
         </div>
       </div>
 
-      <button
+      <BaseButton
         @click="logout"
-        class="w-full py-2.5 bg-gov-navy hover:bg-rose-950 hover:text-rose-300 text-slate-200 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 border border-gov-navy-light/40"
+        variant="danger"
+        size="sm"
+        class="w-full shadow-md"
       >
-        <svg class="w-4 h-4 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-        </svg>
+        <template #icon-left>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+        </template>
         <span>{{ $t('admin.logout') }}</span>
-      </button>
+      </BaseButton>
     </div>
   </aside>
 </template>
@@ -68,7 +75,7 @@ function createSvgIcon(d: string) {
 }
 
 const menuItems = [
-  { path: '/admin', label: 'Dashboard', icon: createSvgIcon('M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z') },
+  { path: '/admin', label: 'Dashboard Overview', icon: createSvgIcon('M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z') },
   { path: '/admin/news', label: 'News & Notices', icon: createSvgIcon('M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z') },
   { path: '/admin/projects', label: 'IT Projects', icon: createSvgIcon('M13 10V3L4 14h7v7l9-11h-7z') },
   { path: '/admin/staff', label: 'Staff Directory', icon: createSvgIcon('M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z') },

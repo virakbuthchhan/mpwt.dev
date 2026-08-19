@@ -1,11 +1,13 @@
 <template>
-  <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex items-center justify-between hover:shadow-md transition">
+  <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex items-center justify-between hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 group">
     <div class="space-y-1">
-      <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">{{ label }}</span>
-      <div class="text-3xl font-extrabold text-slate-900 font-mono">{{ value }}</div>
+      <span class="text-[10.5px] font-bold text-slate-400 uppercase tracking-widest block">{{ label }}</span>
+      <div class="text-3xl font-black text-slate-900 font-mono tracking-tight group-hover:text-gov-navy transition">
+        {{ value }}
+      </div>
     </div>
-    <div class="w-12 h-12 rounded-2xl bg-gov-navy/5 flex items-center justify-center text-gov-navy border border-gov-navy/10 shadow-inner">
-      <svg class="w-6 h-6 text-gov-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="w-13 h-13 rounded-2xl bg-gov-navy text-gov-gold flex items-center justify-center shadow-md border-2 border-gov-gold/40 group-hover:scale-105 transition-transform duration-200">
+      <svg class="w-6 h-6 text-gov-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="svgPath" />
       </svg>
     </div>
@@ -13,6 +15,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+
 const props = defineProps<{
   label: string
   value: number | string

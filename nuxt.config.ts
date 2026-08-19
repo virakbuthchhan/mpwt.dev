@@ -11,6 +11,14 @@ export default defineNuxtConfig({
     '@nuxtjs/sitemap'
   ],
 
+  components: [
+    {
+      path: '~/components/ui',
+      pathPrefix: false
+    },
+    '~/components'
+  ],
+
   site: {
     url: 'https://mpwt.dev',
     name: 'Department of Information Technology Systems - MPWT'
@@ -45,10 +53,12 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Official portal of the Department of Information Technology Systems, Directorate General of GDPTR, Ministry of Public Works and Transport (MPWT).' },
         { name: 'format-detection', content: 'telephone=no' },
         { property: 'og:site_name', content: 'MPWT IT Systems' },
-        { property: 'og:type', content: 'website' }
+        { property: 'og:type', content: 'website' },
+        { property: 'og:image', content: '/logo.png' }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/png', href: '/logo.png' },
+        { rel: 'apple-touch-icon', href: '/logo.png' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Google+Sans+Text:wght@400;500;700&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Khmer:wght@300;400;500;600;700&display=swap' }

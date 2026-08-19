@@ -1,25 +1,25 @@
 <template>
   <div class="space-y-8">
-    <!-- Header -->
+    <!-- Header Title Banner -->
     <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-5">
       <div>
-        <h1 class="text-2xl font-bold text-slate-900 tracking-tight font-sans">
+        <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-sans">
           Dashboard Overview
         </h1>
-        <p class="text-xs text-slate-500 font-sans">
-          Welcome back, <strong class="text-gov-navy">{{ user?.name }}</strong> ({{ user?.role }})
+        <p class="text-xs sm:text-sm text-slate-500 font-sans mt-0.5">
+          Welcome back, <strong class="text-gov-navy font-bold">{{ user?.name }}</strong> • logged in as <span class="bg-gov-gold/20 text-gov-navy px-2 py-0.5 rounded font-mono font-bold">{{ user?.role }}</span>
         </p>
       </div>
 
-      <div class="flex items-center gap-2">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-full border border-emerald-300">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-full border border-emerald-300 shadow-xs">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
           System Online
         </span>
       </div>
     </div>
 
-    <!-- Stats Grid -->
+    <!-- Stats Grid (v-card style) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       <AdminStatCard label="News Articles" :value="newsCount" />
       <AdminStatCard label="IT Projects" :value="projectsCount" />
@@ -27,10 +27,10 @@
       <AdminStatCard label="Open Datasets" :value="datasetsCount" />
     </div>
 
-    <!-- Recent Activity & Inbox Preview Grid -->
+    <!-- Recent Activity & Inbox Preview Grid (v-card style) -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-      <!-- Recent News Table -->
-      <div class="lg:col-span-7 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+      <!-- Recent News Table (v-card style) -->
+      <div class="lg:col-span-7 bg-white rounded-3xl p-6 shadow-sm border border-slate-200 space-y-4">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <h3 class="font-bold text-sm text-slate-900 flex items-center gap-2">
             <svg class="w-4 h-4 text-gov-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,8 +38,9 @@
             </svg>
             <span>Recent Articles</span>
           </h3>
-          <NuxtLink to="/admin/news" class="text-xs font-bold text-gov-navy hover:text-gov-gold">
-            Manage All →
+          <NuxtLink to="/admin/news" class="text-xs font-bold text-gov-navy hover:text-gov-gold transition flex items-center gap-1">
+            <span>Manage All</span>
+            <span>→</span>
           </NuxtLink>
         </div>
 
@@ -47,21 +48,21 @@
           <div
             v-for="item in recentNews"
             :key="item.id"
-            class="p-3 bg-slate-50 rounded-xl flex items-center justify-between gap-4 border border-slate-100"
+            class="p-3.5 bg-slate-50 hover:bg-slate-100/80 rounded-2xl flex items-center justify-between gap-4 border border-slate-100 transition"
           >
-            <div class="truncate">
+            <div class="truncate space-y-0.5">
               <div class="font-bold text-slate-900 truncate font-khmer">{{ item.titleKh }}</div>
               <div class="text-slate-400 text-[11px] font-mono">{{ item.category }} • {{ item.publishedAt }}</div>
             </div>
-            <span class="px-2 py-0.5 bg-slate-200 text-slate-700 text-[10px] font-bold rounded">
+            <span class="px-2.5 py-1 bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg shrink-0">
               {{ item.views }} views
             </span>
           </div>
         </div>
       </div>
 
-      <!-- Inquiry Messages Inbox -->
-      <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+      <!-- Inquiry Messages Inbox (v-card style) -->
+      <div class="lg:col-span-5 bg-white rounded-3xl p-6 shadow-sm border border-slate-200 space-y-4">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <h3 class="font-bold text-sm text-slate-900 flex items-center gap-2">
             <svg class="w-4 h-4 text-gov-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,8 +70,9 @@
             </svg>
             <span>Inquiry Inbox</span>
           </h3>
-          <NuxtLink to="/admin/settings" class="text-xs font-bold text-gov-navy hover:text-gov-gold">
-            View Inbox →
+          <NuxtLink to="/admin/settings" class="text-xs font-bold text-gov-navy hover:text-gov-gold transition flex items-center gap-1">
+            <span>View Inbox</span>
+            <span>→</span>
           </NuxtLink>
         </div>
 
@@ -82,14 +84,14 @@
           <div
             v-for="inq in inquiries.slice(0, 3)"
             :key="inq.id"
-            class="p-3 bg-slate-50 rounded-xl space-y-1 border border-slate-100"
+            class="p-3.5 bg-slate-50 hover:bg-slate-100/80 rounded-2xl space-y-1 border border-slate-100 transition"
           >
             <div class="flex items-center justify-between font-bold text-slate-900">
               <span>{{ inq.name }}</span>
               <span class="text-[10px] text-slate-400 font-mono">{{ inq.createdAt }}</span>
             </div>
             <div class="text-gov-gold font-bold text-[11px] truncate">{{ inq.subject }}</div>
-            <p class="text-slate-600 text-[11px] line-clamp-2">{{ inq.message }}</p>
+            <p class="text-slate-600 text-[11px] line-clamp-2 leading-relaxed">{{ inq.message }}</p>
           </div>
         </div>
       </div>

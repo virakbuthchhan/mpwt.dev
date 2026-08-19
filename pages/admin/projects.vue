@@ -46,68 +46,111 @@
     </DataTable>
 
     <!-- Create / Edit Modal -->
-    <div v-if="showModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-      <div class="bg-white rounded-2xl max-w-xl w-full p-6 space-y-4 shadow-2xl relative text-xs sm:text-sm">
-        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
-          <h3 class="font-bold text-slate-900 text-base">{{ editingId ? 'Edit Project' : 'Add New Project' }}</h3>
-          <button @click="showModal = false" class="text-slate-400 font-bold">✕</button>
+    <div v-if="showModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4">
+      <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-7 space-y-5 shadow-2xl relative border border-slate-100">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-gov-navy/10 text-gov-navy flex items-center justify-center font-bold">
+              <svg class="w-5 h-5 text-gov-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-slate-900 text-base sm:text-lg leading-tight">{{ editingId ? 'Edit Project' : 'Add New Project' }}</h3>
+              <p class="text-xs text-slate-500">Configure IT project milestones, progress, and unit responsibilities</p>
+            </div>
+          </div>
+          <button @click="showModal = false" class="p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition">✕</button>
         </div>
 
-        <form @submit.prevent="saveProject" class="space-y-3">
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="font-bold text-slate-700 block">Title (Khmer)</label>
-              <input v-model="form.titleKh" required type="text" class="w-full p-2 bg-slate-50 border border-slate-300 rounded font-khmer" />
-            </div>
-            <div>
-              <label class="font-bold text-slate-700 block">Title (English)</label>
-              <input v-model="form.titleEn" required type="text" class="w-full p-2 bg-slate-50 border border-slate-300 rounded" />
-            </div>
+        <form @submit.prevent="saveProject" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <BaseInput
+              v-model="form.titleKh"
+              label="Title (Khmer)"
+              placeholder="ចំណងជើងគម្រោង"
+              fontKhmer
+              required
+              icon="tag"
+            />
+            <BaseInput
+              v-model="form.titleEn"
+              label="Title (English)"
+              placeholder="e.g. National Logistics System"
+              required
+              icon="tag"
+            />
           </div>
 
-          <div class="grid grid-cols-3 gap-3">
-            <div>
-              <label class="font-bold text-slate-700 block">Status</label>
-              <select v-model="form.status" class="w-full p-2 bg-slate-50 border border-slate-300 rounded font-semibold">
-                <option value="Planning">Planning</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Completed">Completed</option>
-              </select>
-            </div>
-            <div>
-              <label class="font-bold text-slate-700 block">Progress (%)</label>
-              <input v-model.number="form.progress" type="number" min="0" max="100" class="w-full p-2 bg-slate-50 border border-slate-300 rounded font-mono" />
-            </div>
-            <div>
-              <label class="font-bold text-slate-700 block">Year</label>
-              <input v-model.number="form.year" type="number" class="w-full p-2 bg-slate-50 border border-slate-300 rounded font-mono" />
-            </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <BaseSelect
+              v-model="form.status"
+              label="Status"
+              icon="status"
+              required
+              :options="['Planning', 'In Progress', 'Completed']"
+            />
+            <BaseInput
+              v-model.number="form.progress"
+              type="number"
+              min="0"
+              max="100"
+              label="Progress (%)"
+              icon="percent"
+              fontMono
+            />
+            <BaseInput
+              v-model.number="form.year"
+              type="number"
+              label="Year"
+              icon="calendar"
+              fontMono
+            />
           </div>
 
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="font-bold text-slate-700 block">Timeline</label>
-              <input v-model="form.timeline" type="text" placeholder="2025 - 2026" class="w-full p-2 bg-slate-50 border border-slate-300 rounded font-mono" />
-            </div>
-            <div>
-              <label class="font-bold text-slate-700 block">Responsible Unit</label>
-              <input v-model="form.responsibleUnit" type="text" class="w-full p-2 bg-slate-50 border border-slate-300 rounded" />
-            </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <BaseInput
+              v-model="form.timeline"
+              label="Timeline"
+              placeholder="2025 - 2026"
+              icon="calendar"
+              fontMono
+            />
+            <BaseInput
+              v-model="form.responsibleUnit"
+              label="Responsible Unit"
+              placeholder="Software Development Unit"
+              icon="building"
+            />
           </div>
 
-          <div>
-            <label class="font-bold text-slate-700 block">Description (Khmer)</label>
-            <textarea v-model="form.descriptionKh" rows="2" class="w-full p-2 bg-slate-50 border border-slate-300 rounded font-khmer"></textarea>
-          </div>
+          <BaseTextarea
+            v-model="form.descriptionKh"
+            label="Description (Khmer)"
+            placeholder="ការពិពណ៌នាអំពីគម្រោង..."
+            fontKhmer
+            rows="2"
+          />
 
-          <div>
-            <label class="font-bold text-slate-700 block">Description (English)</label>
-            <textarea v-model="form.descriptionEn" rows="2" class="w-full p-2 bg-slate-50 border border-slate-300 rounded"></textarea>
-          </div>
+          <BaseTextarea
+            v-model="form.descriptionEn"
+            label="Description (English)"
+            placeholder="Project summary and core objectives..."
+            rows="2"
+          />
 
-          <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
-            <button type="button" @click="showModal = false" class="px-4 py-2 bg-slate-100 text-slate-700 rounded font-bold">Cancel</button>
-            <button type="submit" class="px-5 py-2 bg-gov-navy text-white rounded font-bold">Save Project</button>
+          <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+            <BaseButton type="button" variant="secondary" @click="showModal = false">
+              Cancel
+            </BaseButton>
+            <BaseButton type="submit" variant="primary">
+              <template #icon-left>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </template>
+              Save Project
+            </BaseButton>
           </div>
         </form>
       </div>

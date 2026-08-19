@@ -5,10 +5,8 @@
 
     <div class="w-full max-w-md bg-gov-navy/90 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-gov-navy-light/60 space-y-6 relative z-10">
       <div class="text-center space-y-2">
-        <div class="w-14 h-14 rounded-2xl bg-gov-navy-dark text-gov-gold flex items-center justify-center mx-auto shadow-lg border-2 border-gov-gold">
-          <svg class="w-7 h-7 text-gov-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-          </svg>
+        <div class="w-16 h-16 rounded-2xl bg-white flex items-center justify-center p-1 mx-auto shadow-lg border-2 border-gov-gold overflow-hidden">
+          <img src="/logo.png" alt="MPWT Logo" class="w-full h-full object-contain" />
         </div>
         <h1 class="text-2xl font-bold text-white tracking-tight">MPWT Admin CMS</h1>
         <p class="text-xs text-slate-300 font-mono">Department of IT Systems • mpwt.dev</p>
@@ -18,38 +16,38 @@
         {{ errorMsg }}
       </div>
 
-      <form @submit.prevent="handleLogin" class="space-y-4 text-xs">
-        <div class="space-y-1.5">
-          <label class="font-bold text-slate-200 block">Username</label>
-          <input
+      <form @submit.prevent="handleLogin" class="space-y-4">
+          <BaseInput
             v-model="username"
-            required
-            type="text"
+            label="Username"
             placeholder="admin / editor / viewer"
-            class="w-full p-3.5 bg-gov-navy-dark border border-gov-navy-light/60 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-gov-gold font-mono"
-          />
-        </div>
-
-        <div class="space-y-1.5">
-          <label class="font-bold text-slate-200 block">Password</label>
-          <input
-            v-model="password"
             required
-            type="password"
-            placeholder="••••••••"
-            class="w-full p-3.5 bg-gov-navy-dark border border-gov-navy-light/60 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-gov-gold font-mono"
+            icon="user"
+            fontMono
+            size="lg"
           />
-        </div>
 
-        <button
-          type="submit"
-          :disabled="loading"
-          class="w-full py-4 bg-gov-gold hover:bg-gov-gold-light text-gov-navy font-bold rounded-xl shadow-lg transition text-xs flex items-center justify-center gap-2"
-        >
-          <span v-if="loading">Authenticating...</span>
-          <span v-else>Sign In to Dashboard</span>
-        </button>
-      </form>
+          <BaseInput
+            v-model="password"
+            type="password"
+            label="Password"
+            placeholder="••••••••"
+            required
+            icon="lock"
+            fontMono
+            size="lg"
+          />
+
+          <BaseButton
+            type="submit"
+            variant="gold"
+            size="lg"
+            :loading="loading"
+            class="w-full shadow-lg"
+          >
+            Sign In to Dashboard
+          </BaseButton>
+        </form>
 
       <!-- Quick Demo Login Buttons -->
       <div class="pt-4 border-t border-gov-navy-light/40 space-y-2 text-[11px]">

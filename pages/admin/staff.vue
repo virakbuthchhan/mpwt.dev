@@ -24,65 +24,115 @@
     />
 
     <!-- Create / Edit Modal -->
-    <div v-if="showModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-      <div class="bg-white rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative text-xs sm:text-sm">
-        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
-          <h3 class="font-bold text-slate-900 text-base">{{ editingId ? 'Edit Staff Member' : 'Add Staff Member' }}</h3>
-          <button @click="showModal = false" class="text-slate-400 font-bold">✕</button>
+    <div v-if="showModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4">
+      <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 space-y-5 shadow-2xl relative border border-slate-100">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-gov-navy/10 text-gov-navy flex items-center justify-center font-bold">
+              <svg class="w-5 h-5 text-gov-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-slate-900 text-base sm:text-lg leading-tight">{{ editingId ? 'Edit Staff Member' : 'Add Staff Member' }}</h3>
+              <p class="text-xs text-slate-500">Enter officer credentials and unit assignment details</p>
+            </div>
+          </div>
+          <button @click="showModal = false" class="p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition">✕</button>
         </div>
 
-        <form @submit.prevent="saveStaff" class="space-y-3">
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="font-bold text-slate-700 block">Name (Khmer)</label>
-              <input v-model="form.nameKh" required type="text" class="w-full p-2 bg-slate-50 border border-slate-300 rounded font-khmer" />
-            </div>
-            <div>
-              <label class="font-bold text-slate-700 block">Name (English)</label>
-              <input v-model="form.nameEn" required type="text" class="w-full p-2 bg-slate-50 border border-slate-300 rounded" />
-            </div>
+        <form @submit.prevent="saveStaff" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <BaseInput
+              v-model="form.nameKh"
+              label="Name (Khmer)"
+              placeholder="ឈ្មោះភាសាខ្មែរ"
+              fontKhmer
+              required
+              icon="user"
+            />
+            <BaseInput
+              v-model="form.nameEn"
+              label="Name (English)"
+              placeholder="e.g. Sok Chan"
+              required
+              icon="user"
+            />
           </div>
 
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="font-bold text-slate-700 block">Position (Khmer)</label>
-              <input v-model="form.positionKh" required type="text" class="w-full p-2 bg-slate-50 border border-slate-300 rounded font-khmer" />
-            </div>
-            <div>
-              <label class="font-bold text-slate-700 block">Position (English)</label>
-              <input v-model="form.positionEn" required type="text" class="w-full p-2 bg-slate-50 border border-slate-300 rounded" />
-            </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <BaseInput
+              v-model="form.positionKh"
+              label="Position (Khmer)"
+              placeholder="តួនាទីភាសាខ្មែរ"
+              fontKhmer
+              required
+              icon="tag"
+            />
+            <BaseInput
+              v-model="form.positionEn"
+              label="Position (English)"
+              placeholder="e.g. Senior Software Engineer"
+              required
+              icon="tag"
+            />
           </div>
 
-          <div>
-            <label class="font-bold text-slate-700 block">Unit / Office</label>
-            <select v-model="form.unitEn" class="w-full p-2 bg-slate-50 border border-slate-300 rounded font-semibold">
-              <option value="Department Executive">Department Executive</option>
-              <option value="Software Development Unit">Software Development Unit</option>
-              <option value="Infrastructure & Network Unit">Infrastructure & Network Unit</option>
-              <option value="Data Management & GIS Unit">Data Management & GIS Unit</option>
-            </select>
+          <BaseSelect
+            v-model="form.unitEn"
+            label="Unit / Office"
+            icon="building"
+            required
+            :options="[
+              'Department Executive',
+              'Software Development Unit',
+              'Infrastructure & Network Unit',
+              'Data Management & GIS Unit'
+            ]"
+          />
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <BaseInput
+              v-model="form.email"
+              type="email"
+              label="Email Address"
+              placeholder="officer@mpwt.gov.kh"
+              required
+              icon="mail"
+              fontMono
+            />
+            <BaseInput
+              v-model="form.phone"
+              type="tel"
+              label="Phone Number"
+              placeholder="+855 23 888 100"
+              icon="phone"
+              fontMono
+            />
           </div>
 
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="font-bold text-slate-700 block">Email</label>
-              <input v-model="form.email" required type="email" class="w-full p-2 bg-slate-50 border border-slate-300 rounded font-mono" />
-            </div>
-            <div>
-              <label class="font-bold text-slate-700 block">Phone</label>
-              <input v-model="form.phone" type="text" class="w-full p-2 bg-slate-50 border border-slate-300 rounded font-mono" />
-            </div>
-          </div>
+          <BaseInput
+            v-model="form.photo"
+            type="url"
+            label="Photo URL"
+            placeholder="https://images.unsplash.com/..."
+            icon="photo"
+            fontMono
+            clearable
+          />
 
-          <div>
-            <label class="font-bold text-slate-700 block">Photo URL</label>
-            <input v-model="form.photo" type="url" class="w-full p-2 bg-slate-50 border border-slate-300 rounded font-mono" />
-          </div>
-
-          <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
-            <button type="button" @click="showModal = false" class="px-4 py-2 bg-slate-100 text-slate-700 rounded font-bold">Cancel</button>
-            <button type="submit" class="px-5 py-2 bg-gov-navy text-white rounded font-bold">Save Staff</button>
+          <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+            <BaseButton type="button" variant="secondary" @click="showModal = false">
+              Cancel
+            </BaseButton>
+            <BaseButton type="submit" variant="primary">
+              <template #icon-left>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </template>
+              Save Staff
+            </BaseButton>
           </div>
         </form>
       </div>

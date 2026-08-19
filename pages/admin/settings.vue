@@ -16,31 +16,39 @@
         ✅ Settings saved successfully!
       </div>
 
-      <form @submit.prevent="saveSettings" class="space-y-4 text-xs sm:text-sm">
-        <div>
-          <label class="font-bold text-slate-700 block mb-1">Ticker Message (Khmer)</label>
-          <input v-model="settings.announcementTickerKh" type="text" class="w-full p-3 bg-slate-50 border border-slate-300 rounded-lg font-khmer" />
+      <form @submit.prevent="saveSettings" class="space-y-4">
+        <BaseInput
+          v-model="settings.announcementTickerKh"
+          label="Ticker Message (Khmer)"
+          placeholder="សារជូនដំណឹងភាសាខ្មែរ..."
+          fontKhmer
+        />
+
+        <BaseInput
+          v-model="settings.announcementTickerEn"
+          label="Ticker Message (English)"
+          placeholder="Official announcement message in English..."
+        />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <BaseInput
+            v-model="settings.contactPhone"
+            label="Contact Phone"
+            icon="phone"
+            fontMono
+          />
+          <BaseInput
+            v-model="settings.contactEmail"
+            type="email"
+            label="Contact Email"
+            icon="mail"
+            fontMono
+          />
         </div>
 
-        <div>
-          <label class="font-bold text-slate-700 block mb-1">Ticker Message (English)</label>
-          <input v-model="settings.announcementTickerEn" type="text" class="w-full p-3 bg-slate-50 border border-slate-300 rounded-lg" />
-        </div>
-
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="font-bold text-slate-700 block mb-1">Contact Phone</label>
-            <input v-model="settings.contactPhone" type="text" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg font-mono" />
-          </div>
-          <div>
-            <label class="font-bold text-slate-700 block mb-1">Contact Email</label>
-            <input v-model="settings.contactEmail" type="email" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg font-mono" />
-          </div>
-        </div>
-
-        <button type="submit" :disabled="saving" class="px-6 py-2.5 bg-gov-navy hover:bg-gov-navy-light text-white rounded-lg font-bold shadow text-xs">
-          {{ saving ? 'Saving...' : 'Save Ticker Settings' }}
-        </button>
+        <BaseButton type="submit" variant="primary" :loading="saving">
+          Save Ticker Settings
+        </BaseButton>
       </form>
     </div>
 
