@@ -13,7 +13,6 @@ pipeline {
         APP_DIR       = '/opt/apps/mpwt.dev'
         APP_PORT      = '3030'
         HEALTH_PATH   = '/'
-        GIT_BRANCH    = 'main'
     }
 
     stages {
@@ -39,13 +38,21 @@ pipeline {
 
         stage('Deploy') {
             steps {
+                sh '''
+                    set -euo pipefail
+
+                    echo "=== Step 1: Syncing code from Jenkins workspace to ${APP_DIR} ==="
+                    mkdir -p "${APP_DIR}"
+
+                    # Copy all files from checked-out workspace to deployment directory
+                    cp -rf . "${APP_DIR}/"
+
+                    echo "Workspace files successfully copied to ${APP_DIR}"
+                '''
+
                 dir("${APP_DIR}") {
                     sh '''
                         set -euo pipefail
-
-                        echo "=== Step 1: Updating source code (${GIT_BRANCH}) ==="
-                        git fetch origin ${GIT_BRANCH}
-                        git reset --hard origin/${GIT_BRANCH}
 
                         echo "=== Step 2: Building Docker images ==="
                         docker compose build --pull
@@ -63,6 +70,8 @@ pipeline {
                     sh '''
                         set -euo pipefail
                         echo "=== Step 4: Applying Prisma Schema & Migrations ==="
+                        # Wait a moment for PostgreSQL container to be fully ready
+                        sleep 3
                         docker compose exec -T app npx prisma db push --skip-generate
                     '''
                 }
@@ -111,7 +120,7 @@ pipeline {
             dir("${APP_DIR}") {
                 sh '''
                     echo "--- Container Status ---"
-                    docker compose ps
+                    docker compose ps || true
 
                     echo "--- Nuxt App Logs ---"
                     docker compose logs --tail=100 app || true
