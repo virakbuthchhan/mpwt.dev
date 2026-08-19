@@ -18,17 +18,26 @@ pipeline {
         stage('Environment') {
             steps {
                 sh '''
-                    echo "Node:"
-                    node --version || true
+                    echo "--- User & Workspace ---"
+                    whoami
+                    pwd
 
-                    echo "NPM:"
-                    npm --version || true
+                    echo "--- Node & NPM ---"
+                    node --version 2>/dev/null || echo "Node.js not installed on Jenkins agent (OK if using Docker containers)"
+                    npm --version 2>/dev/null || echo "NPM not installed on Jenkins agent"
 
-                    echo "Docker:"
+                    echo "--- Docker ---"
                     docker --version
 
-                    echo "Docker Compose:"
-                    docker compose version
+                    echo "--- Docker Compose Detection ---"
+                    if docker compose version 2>/dev/null; then
+                        echo "Docker Compose (V2 plugin) is available"
+                    elif docker-compose --version 2>/dev/null; then
+                        echo "Docker Compose (V1 standalone) is available"
+                    else
+                        echo "WARNING: Neither 'docker compose' nor 'docker-compose' found on Jenkins agent!"
+                        echo "You must install docker-compose-plugin inside your Jenkins container."
+                    fi
                 '''
             }
         }
@@ -36,6 +45,7 @@ pipeline {
         stage('Docker Test') {
             steps {
                 sh '''
+                    echo "Checking docker daemon connectivity:"
                     docker ps
                 '''
             }
